@@ -1,0 +1,111 @@
+import pygame
+pygame.init()
+win = pygame.display.set_mode([500, 500])
+pygame.display.set_caption("Concentration")
+score = 0
+fps = 60
+ball_x = 500
+ball_y = 450
+ball_w = 5
+ball_l = 5
+x = 250
+y = 450
+w = 20
+l = 20
+vel = 3
+jumpCount = 5
+isJump = False
+change = 5
+levelBar_w = 10
+levelBar_l = 10
+clock = pygame.time.Clock()
+font = pygame.font.SysFont("comicsansms", 25, True)
+g_exit = False
+while not g_exit:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            g_exit = True
+    keys = pygame.key.get_pressed()
+    if not(isJump):
+        if keys[pygame.K_SPACE]:
+            isJump = True
+    else:
+        if jumpCount >= -5:
+            y -= (jumpCount * abs(jumpCount)) * 0.5
+            jumpCount -= 0.25
+        else:
+            jumpCount = 5
+            isJump = False
+    win.fill((0, 0, 0))
+    ball_x -= change
+    pygame.draw.rect(win, (255, 0, 0), (10, 10, 100, 10), 1)
+    pygame.draw.rect(win, (0, 0, 255), (x, y, l, w))
+    pygame.draw.rect(win, (255, 153, 51), (ball_x, ball_y, ball_w, ball_l))
+    if score == 50:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l, levelBar_w))
+    if score == 60:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l, levelBar_w))
+    if score == 70:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 10, levelBar_w))
+    if score == 80:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 10, levelBar_w))
+    if score == 90:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 20, levelBar_w))
+    if score == 100:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 20, levelBar_w))
+    if score == 110:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 30, levelBar_w))
+    if score == 120:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 30, levelBar_w))
+    if score == 130:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 40, levelBar_w))
+    if score == 140:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 40, levelBar_w))
+    if score == 150:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 50, levelBar_w))
+    if score == 160:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 50, levelBar_w))
+    if score == 170:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 60, levelBar_w))
+    if score == 180:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 60, levelBar_w))
+    if score == 190:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 70, levelBar_w))
+    if score == 200:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 70, levelBar_w))
+    if score == 210 :
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 80, levelBar_w))
+    if score == 220:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 80, levelBar_w))
+    if score == 230:
+        pygame.draw.rect(win, (0, 255, 0), (10, 10, levelBar_l + 90, levelBar_w))
+    if score == 240:
+        pygame.draw   .rect(win, (0, 255, 0), (10, 10, levelBar_l + 90, levelBar_w))
+    if score == 240:
+        win.fill((255, 153, 51))
+        win_text = font.render("You have great Concentration!", 1, (255, 255, 255))
+        win.blit(win_text, (30, 210))
+        next_text = font.render("You Won!", 1, (255, 255, 255))
+        win.blit(next_text, (30, 240))
+        g_exit = True
+    if ball_x == 0:
+        change = -change
+    if ball_x == 500:
+        change = -change
+        fps += 10
+        score += 10
+    text = font.render("Score: " + str(score), 1, (200, 200, 200))
+    win.blit(text, (350, 10))
+    if ball_x == x and ball_y == y:
+        g_exit = True
+        win.fill((255, 153, 51))
+        text2 = font.render("Concentrate ;)", 1, (255, 255, 255))
+        win.blit(text2, (150, 190))
+        text3 = font.render("You Score was: " + str(score), 1, (255, 255, 255))
+        win.blit(text3, (150, 220))
+
+    pygame.display.update()
+
+    clock.tick(fps)
+pygame.time.delay(2000)
+pygame.quit()
